@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://unpkg.com/imask"></script>
+</head>
+<header>
+<div id = "top_menu">
+            <div class = "top_menu_q">
+                <div class = "top_menu_q_left">
+                    <a class = "a_color" href="{% url 'home' %}">Главная</a>
+                    <a class = "a_color" href="">О нас</a>
+                    <a class = "a_color" href="">Контакты</a>
+                </div>
+                <div class = "top_menu_q_right">
+                    <div class = 'top_menu_url'>
+                        <img src="{% static 'img/phone (1).svg' %}">
+                        <a class = "a_color" href="">+375(29)7542136</a>
+                    </div>
+                    <div class = 'top_menu_url'>
+                        <img src="{% static 'img/delivery-icon.svg' %}">
+                        <a class = "a_color" href="">Доставка</a>
+                    </div>
+                    <button id = 'burer_btn'>
+                        <img src="{% static 'img/Vector.svg' %}">
+                    </button>
+                    <div id="modal" class="modal">
+                        <div class="modal-content">
+                            <span class="close-btn">&times;</span>
+                            <div class = 'modal-contant-first'>
+                                <p>+375(29)7542136</p>
+                                <a href="">ДОСТАВКА</a>
+                            </div>
+                            <div class = 'modal-contant-second'>
+                                <a href="">АКЦИИ</a>
+                                <a href="">НОВОСТИ</a>
+                                <a href="">СОТРУДНИЧЕСТВО</a>
+                                <a href="">НАШИ ЗАВЕДЕНИЯ</a>
+                                <a href="{% url 'config' %}">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id ="midl_menu">
+            <div class ="midl_menu_one">
+                <img class = "midl_menu_logo" src="{% static 'img/Logot.jpg' %}" alt = "Логотип">
+                <h1>FIRE KEBAB</h1>
+            </div>
+            <div class = "midl_menu_two">
+                <a href = "{% url 'card' %}">
+                <button>
+                    <img class = "img1" src="{% static 'img/cart.svg' %}">
+                    <h3>Корзина</h3>
+                </button>
+                 </a>
+            </div>
+        </div>
+        <nav id = "nav_mene">
+                <div>
+                    <a class = "a_color" href="">АКЦИИ</a>
+                </div>
+                <div>
+                    <a class = "a_color" href="">НОВОСТИ</a>
+                </div>
+                <div>
+                    <a class = "a_color" href="">СОТРУДНИЧЕСТВО</a>
+                </div>
+                <div>
+                    <a class = "a_color" href="">НАШИ ЗАВЕДЕНИЯ</a>
+                </div>
+                <div>
+                    <a class = "a_color" href="{% url 'config' %}">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</a>
+                </div>
+        </nav>
+    </header>
+<body>
+<section id="contact">
+             <div class="contact-content">
+                <div class="contact-form-container">
+                    <form class="contact-form"  method="POST">
+                        {% csrf_token %}
+                        <h4>СВЯЗАТЬСЯ С НАМИ</h4>
+                        <div class="contact-input-group">
+                            <span>Имя</span>
+                            <input type="text" name='Name' placeholder ='Введите текст здесь' required>
+                        </div>
+                        <div id = 'phone-select' class="contact-input-group">
+                            <div class="selects">
+                                +375
+                                <img src="{% static '/img/Belarus.png'%}" alt="">
+                            </div>
+                            <span>Номер телефона</span>
+                            <input id='InputPhone' type="tel" name='telephone' placeholder="+375 (29) 123-45-67" pattern="^\+375\s\((25|29|33|44|17)\)\s\d{3}-\d{2}-\d{2}$" required>
+                        </div>
+                        <div class="contact-input-group">
+                            <span>Email</span>
+                            <input type="email" name='email' placeholder ='Введите текст здесь' required>
+                        </div>
+                        <div class="contact-input-group">
+                            <span>Пожелание</span>
+                            <input type="text" name='dop_text' placeholder ='Введите текст здесь'>
+                        </div>
+                        <div class="contact-checkbox">
+                            <input type="checkbox" required>
+                            <p>Установив этот флажок, вы соглашаетесь с <a href="{% url 'config' %}">условиями обслуживания</a> и <a href="{% url 'config' %}">политикой конфиденциальности</a>..</p>
+                        </div>
+                        <button>Отправить</button>
+                    </form>
+                    <div class="contact-form-div">
+                        <div class="contact-form-top">
+                            <h3>Хотите чего-нибудь вкусного?</h3>
+                            <h5>От пикантных кусочков до сладких наслаждений, ваши аппетиты заканчиваются здесь.</h5>
+                        </div>
+                        <div class="contact-form-bottom">
+                            <div class="contact-form-part">
+                                <h4>Наша локация</h4>
+                                <div>
+                                    <img src = "{% static '/img/location.svg' %} " alt="">
+                                    <p>г.Минск ул.Притыцкого 78</p>
+                                </div>
+                            </div>
+                            <div class="contact-form-part">
+                                <h4>Номер Телефона</h4>
+                                <div>
+                                    <img src="{% static '/img/call.svg' %}" alt="">
+                                    <p>+375 25 543 40 20</p>
+                                </div>
+                            </div>
+                            <div class="contact-form-part">
+                                <h4>Email</h4>
+                                <div>
+                                    <img src="{% static '/img/sms.svg' %}">
+                                    <p>vladsadovskiii26022010@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-form-part">
+                                <h4>Открыты</h4>
+                                <div>
+                                    <img src="{% static '/img/clock.svg' %}" alt="">
+                                    <p>Понедельник - Пятница: 10:00 - 21:00</p>
+                                </div>
+                                <div>
+                                    <img src="{% static '/img/clock.svg' %}" alt="">
+                                    <p>Суббота : 9:00 - 22:00 </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-map-container">
+                    <div class = 'contact-map-info'>
+                        <div class = 'contact-map-info-left'>
+                            <h4>Fire Kebab</h4>
+                            <div class = 'contact-address'>
+                                <img src="{%static '/img/Group1.svg'%}">
+                                <p>ул.Притыцкого 78, Минск, Беларусь</p>
+                            </div>
+                            <div class = 'contact-address'>
+                                <img src="{%static '/img/call.svg'%}">
+                                <p>+375 25 543 40 20</p>
+                            </div>
+                            <div class="contact-rating">
+                                <p>4,6</p>
+                                <div>
+                                    <img src="{% static '/img/star.svg' %}" alt="">
+                                    <img src="{% static '/img/star.svg' %}" alt="">
+                                    <img src="{% static '/img/star.svg' %}" alt="">
+                                    <img src="{% static '/img/star.svg' %}" alt="">
+                                </div>
+                                <span>(1.662)</span>
+                            </div>
+                        </div>
+                        <button id ='located'>
+                            <span>Маршрут к ресторану</span>
+                            <img src="{%static '/img/Group.svg'%}" alt="map">
+                        </button>
+                    </div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2350.1234567890123!2d27.4823!3d53.9045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbc5f1b6b7b7b7%3A0x1234567890abcdef!2z0YPQuy4g0J_RgNC40YLRi9GG0LrQvtCz0L4gNzgsINCc0LjQvdGB0Lo!5e0!3m2!1sru!2sby!4v1234567890" width="1240" height="650" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+<footer>
+        <div class='footer-up'>
+            <div class = 'column'>
+                <div class = 'footer_line'></div>
+                <a href="">Наши преимущество<a>
+                <a href="">Как работает наш сервис?</a>
+                <a href="">Подключится к Eventplace</a>
+                <a href="">Гарантии и безопасность</a>
+            </div>
+            <div class = 'column'>
+                <div class = 'footer_line'></div>
+                <a href="">FAQ</a>
+                <a href="">Документы</a>
+                <a href="">Инвесторам</a>
+                <a href="">СМИ о нас</a>
+            </div>
+            <div class = 'column'>
+                <div class = 'footer_line'></div>
+                <div>
+                    <img src="">
+                    <img scr="">
+                    <img scr="">
+                    <img scr = ''>
+                </div>
+                <a href = ''>OOO"Eventplace"</a>
+                <a href = ''>OOO"Eventplace"</a>
+            </div>
+        </div>
+        <div class = 'footer-bottom'>
+            <h5>2021 all rights reserved</h5>
+            <div>
+                <a href="">Конфиденциальность</a>
+                <a href="">Условия</a>
+            </div>
+        </div>
+    </footer>
+<script src = "{% static '/js/order.js' %}"></script>
+</body>
+</html>

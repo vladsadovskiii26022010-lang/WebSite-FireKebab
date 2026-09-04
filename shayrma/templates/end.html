@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIRE KEBAB</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<section id = 'end'>
+    <div class="success-container">
+    <div class="success-icon">✅</div>
+    <h1 class="success-title">Спасибо за заказ!</h1>
+    <p class="success-subtitle">Ваш заказ успешно оформлен. Мы свяжемся с вами в ближайшее время.</p>
+    <div class="order-number">№{{ products_card.id }}</div>
+    <div class="buttons-group">
+        <a href="{% url 'home' %}" class="btn-home">На главную</a>
+    </div>
+    </div>
+</section>
+</body>
+</html>

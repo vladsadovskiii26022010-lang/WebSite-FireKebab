@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FIRE KEBAB</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header>
+<div id = "top_menu">
+    <div class = "top_menu_q">
+        <div class = "top_menu_q_left">
+            <a class = "a_color" href="{% url 'home' %}">Главная</a>
+            <a class = "a_color" href="">О нас</a>
+            <a class = "a_color" href="">Контакты</a>
+        </div>
+        <div class = "top_menu_q_right">
+            <div>
+                <img src="{% static 'img/phone (1).svg' %}">
+                <a class = "a_color" href="">+375(29)7542136</a>
+            </div>
+            <div>
+                <img src="{% static 'img/delivery-icon.svg' %}">
+                <a class = "a_color" href="">Доставка</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id ="midl_menu">
+    <div class ="midl_menu_one">
+        <img class = "midl_menu_logo" src="{% static 'img/Logot.jpg' %}" alt = "Логотип">
+        <h1>FIRE KEBAB</h1>
+    </div>
+    <div class = "midl_menu_two">
+        <a href = "{% url 'card' %}">
+        <button>
+            <img class = "img1" src="{% static 'img/cart.svg' %}">
+            <h3>Корзина</h3>
+        </button>
+         </a>
+    </div>
+</div>
+<nav id = "nav_mene">
+        <div>
+            <a class = "a_color" href="">АКЦИИ</a>
+        </div>
+        <div>
+            <a class = "a_color" href="">НОВОСТИ</a>
+        </div>
+        <div>
+            <a class = "a_color" href="">СОТРУДНИЧЕСТВО</a>
+        </div>
+        <div>
+            <a class = "a_color" href="">НАШИ ЗАВЕДЕНИЯ</a>
+        </div>
+        <div>
+            <a class = "a_color" href="">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</a>
+        </div>
+</nav>
+<nav id = "nav_menu">
+        <div>
+            <a href="{% url 'kebab' %}">
+                <img src="{% static 'img/doner1.svg' %}">
+                Кебабы</a>
+        </div>
+        <div>
+            <a href="{% url 'Mini_kebab' %}">
+                <img src="{% static 'img/stick.svg' %}">
+                Мини кебабы</a>
+        </div>
+        <div>
+            <a href="{% url 'kebab_sos' %}">
+                <img src="{% static 'img/hunter1.svg' %}">
+                Кебаб с сосиской</a>
+        </div>
+        <div>
+            <a href="{% url 'potatos' %}">
+                 <img src="{% static 'img/_french-fries.svg' %}">
+                 Картошка</a>
+        </div>
+        <div>
+            <a href="{% url 'drink' %}">
+                <img src="{% static 'img/drink.svg' %}">
+                Напитки</a>
+        </div>
+</nav>
+</header>
+<main>
+<div>
+    <h1 class = 'index_main_h1'>Кебабы</h1>
+</div>
+<div class="blocks">
+    {% for kebab in kebab %}
+    <div class = "card">
+        <div class="name">
+            <h3>{{kebab.Name}}</h3>
+        </div>
+            <img src="{{ kebab.kebab_url.url }}">
+            <div class = "ingrets">
+                <p>{{ kebab.text}}</p>
+            </div>
+            <div class = 'container_kebaba_button'>
+                <form method="post" onsubmit="return false;">
+                    {% csrf_token %}
+                    {% if kebab.col_buttons == 2 %}
+                    <div class = 'buttontiks'>
+                        <button   onclick="updatemass(400, {{ kebab.id }})" class="hell_1" name = "mass" value="400">400</button>
+                        <button  onclick="updatemass(500, {{ kebab.id }})" class="hell_2" name = "mass" >500</button>
+                     </div>
+                    {% endif %}
+                    {% if kebab.col_buttons == 4%}
+                    <div class = 'buttontiks_4'>
+                        <button  onclick="updatemass(300, {{ kebab.id }})" class="hell_1" name = "mass" value="300">300</button>
+                        <button   onclick="updatemass(400, {{ kebab.id }})" name = "mass" value="400">400</button>
+                        <button   onclick="updatemass(500, {{ kebab.id }})" name = "mass" value="500">500</button>
+                        <button  onclick="updatemass(650, {{ kebab.id }})" class="hell_2" name = "mass" value="650">650</button>
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+            <div class="price">
+                <h4 id = 'massa-{{ kebab.id}}'>Масса: 400 г</h4>
+                <h4 id='price-{{ kebab.id}}'>Цена: 12.5BYN</h4>
+            </div>
+                <a href="{% url 'pred_card' kebab_url=kebab.id%}">
+                <button class = 'nn'>В корзину</button>
+            </a>
+    </div>
+    {% endfor %}
+</div>
+</main>
+<footer>
+        <div class='footer-up'>
+            <div class = 'column'>
+                <div class = 'footer_line'></div>
+                <a href="">Наши преимущество<a>
+                <a href="">Как работает наш сервис?</a>
+                <a href="">Подключится к Eventplace</a>
+                <a href="">Гарантии и безопасность</a>
+            </div>
+            <div class = 'column'>
+                <div class = 'footer_line'></div>
+                <a href="">FAQ</a>
+                <a href="">Документы</a>
+                <a href="">Инвесторам</a>
+                <a href="">СМИ о нас</a>
+            </div>
+            <div class = 'column'>
+                <div class = 'footer_line'></div>
+                <div>
+                    <img src="">
+                    <img scr="">
+                    <img scr="">
+                    <img scr = ''>
+                </div>
+                <a href = ''>OOO"Eventplace"</a>
+                <a href = ''>OOO"Eventplace"</a>
+            </div>
+        </div>
+        <div class = 'footer-bottom'>
+            <h5>2021 all rights reserved</h5>
+            <div>
+                <a href="">Конфиденциальность</a>
+                <a href="">Условия</a>
+            </div>
+        </div>
+    </footer>
+<script src="{% static 'js/kebab.js' %}"></script>
+</body>
+</html>
+</body>
+</html>

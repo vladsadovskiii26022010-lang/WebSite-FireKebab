@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FIRE KEBAB</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header>
+        <div id = "top_menu">
+            <div class = "top_menu_q">
+                <div class = "top_menu_q_left">
+                    <a class = "a_color" href="{% url 'home' %}">Главная</a>
+                    <a class = "a_color" href="">О нас</a>
+                    <a class = "a_color" href="">Контакты</a>
+                </div>
+                <div class = "top_menu_q_right">
+                    <div>
+                        <img src="{% static 'img/phone (1).svg' %}">
+                        <a class = "a_color" href="">+375(29)7542136</a>
+                    </div>
+                    <div>
+                        <img src="{% static 'img/delivery-icon.svg' %}">
+                        <a class = "a_color" href="">Доставка</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id ="midl_menu">
+            <div class ="midl_menu_one">
+                <img class = "midl_menu_logo" src="{% static 'img/Logot.jpg' %}" alt = "Логотип">
+                <h1>FIRE KEBAB</h1>
+            </div>
+            <div class = "midl_menu_two">
+                <button>
+                    <img class = "img1"src="{% static 'img/cart.svg' %}">
+                    <h3>Корзина</h3>
+                </button>
+            </div>
+        </div>
+        <nav id = "nav_mene">
+                <div>
+                    <a class = "a_color" href="">АКЦИИ</a>
+                </div>
+                <div>
+                    <a class = "a_color" href="">НОВОСТИ</a>
+                </div>
+                <div>
+                    <a class = "a_color" href="">СОТРУДНИЧЕСТВО</a>
+                </div>
+                <div>
+                    <a class = "a_color" href="">НАШИ ЗАВЕДЕНИЯ</a>
+                </div>
+                <div>
+                    <a class = "a_color" href="">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</a>
+                </div>
+        </nav>
+        <nav id = "nav_menu">
+                <div>
+                    <a href="{% url 'kebab' %}">
+                        <img src="{% static 'img/doner1.svg' %}">
+                        Кебабы</a>
+                </div>
+                <div>
+                    <a href="{% url 'Mini_kebab' %}">
+                        <img src="{% static 'img/stick.svg' %}">
+                        Мини кебабы</a>
+                </div>
+                <div>
+                    <a href="{% url 'kebab_sos' %}">
+                        <img src="{% static 'img/hunter1.svg' %}">
+                        Кебаб с сосиской</a>
+                </div>
+                <div>
+                    <a href="{% url 'potatos' %}">
+                         <img src="{% static 'img/_french-fries.svg' %}">
+                         Картошка</a>
+                </div>
+                <div>
+                    <a href="{% url 'drink' %}">
+                        <img src="{% static 'img/drink.svg' %}">
+                        Напитки</a>
+                </div>
+        </nav>
+    </header>
+    <main>
+       <div>
+           <h1>Напитки</h1>
+        </div>
+       <div class="blocks">
+            {% for drink in drink %}
+           <div class = "card">
+                   <h3>{{drink.Name}}</h3>
+                    <img src="{{ drink.drink_url.url }}">
+                       <div class="price">
+                            <h4> Литр: {{ drink.mass }} </h4>
+                            <h4> Цена: {{ drink.price }} BYN</h4>
+                        </div>
+                   <button class = 'nn'>В корзину</button>
+            </div>
+           {% endfor %}
+       </div>
+    </main>
+</body>
+</html>

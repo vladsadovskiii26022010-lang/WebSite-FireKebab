@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIRE KEBAB</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header>
+    <div id="top"></div>
+        <div id = "top_menu">
+            <div class = "top_menu_q">
+                <div class = "top_menu_q_left">
+                    <a class = "a_color" href="{% url 'home' %}">Главная</a>
+                    <a class = "a_color" href="">О нас</a>
+                    <a class = "a_color" href="">Контакты</a>
+                </div>
+                <div class = "top_menu_q_right">
+                    <div class = 'top_menu_url'>
+                        <img src="{% static 'img/phone (1).svg' %}">
+                        <a class = "a_color" href="">+375(29)7542136</a>
+                    </div>
+                    <div class = 'top_menu_url'>
+                        <img src="{% static 'img/delivery-icon.svg' %}">
+                        <a class = "a_color" href="">Доставка</a>
+                    </div>
+                    <button id = 'burer_btn'>
+                        <img src="{% static 'img/Vector.svg' %}">
+                    </button>
+                    <div id="modal" class="modal">
+                        <div class="modal-content">
+                            <span class="close-btn">&times;</span>
+                            <div class = 'modal-contant-first'>
+                                <p>+375(29)7542136</p>
+                                <a href="">ДОСТАВКА</a>
+                            </div>
+                            <div class = 'modal-contant-second'>
+                                <a href="">АКЦИИ</a>
+                                <a href="">НОВОСТИ</a>
+                                <a href="">СОТРУДНИЧЕСТВО</a>
+                                <a href="">НАШИ ЗАВЕДЕНИЯ</a>
+                                <a href="{% url 'config' %}">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id ="midl_menu">
+            <div class ="midl_menu_one">
+                <img class = "midl_menu_logo" src="{% static 'img/Logot.jpg' %}" alt = "Логотип">
+                <h1>FIRE KEBAB</h1>
+            </div>
+            <div class = "midl_menu_two">
+                <a href = "{% url 'card' %}">
+                <button>
+                    <img class = "img1" src="{% static 'img/cart.svg' %}">
+                    <h3>Корзина</h3>
+                </button>
+                 </a>
+            </div>
+        </div>
+        <nav id = "nav_mene">
+                <div>
+                    <a class = "a_color" href="">АКЦИИ</a>
+                </div>
+                <div>
+                    <a class = "a_color" href="">НОВОСТИ</a>
+                </div>
+                <div>
+                    <a class = "a_color" href="">СОТРУДНИЧЕСТВО</a>
+                </div>
+                <div>
+                    <a class = "a_color" href="">НАШИ ЗАВЕДЕНИЯ</a>
+                </div>
+                <div>
+                    <a class = "a_color" href="{% url 'config' %}">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</a>
+                </div>
+        </nav>
+        <div class = "exper">
+             <div class="container" id="colorContainer">
+             </div>
+        </div>
+        <nav id = "nav_menu">
+                <div>
+                    <a href="#kebab">
+                        <img src="{% static 'img/doner1.svg' %}">
+                        Кебабы</a>
+                </div>
+                <div>
+                    <a href="#Mini_kebab">
+                        <img src="{% static 'img/stick.svg' %}">
+                        Мини кебабы</a>
+                </div>
+                <div>
+                    <a href="#kebab_sosiska">
+                        <img src="{% static 'img/hunter1.svg' %}">
+                        Кебаб с сосиской</a>
+                </div>
+                <div>
+                    <a href="#potatos">
+                         <img src="{% static 'img/_french-fries.svg' %}">
+                         Картошка</a>
+                </div>
+                <div>
+                    <a href="#drink">
+                        <img src="{% static 'img/drink.svg' %}">
+                        Напитки</a>
+                </div>
+        </nav>
+    </header>
+    <main>
+        <article id ='kebab'>
+            <div>
+                <h1 class = 'index_main_h1'>Кебабы</h1>
+            </div>
+            <div class="blocks">
+                {% for kebab in kebab %}
+                <div class = "card">
+                    <div class="name">
+                        <h3>{{kebab.Name}}</h3>
+                    </div>
+                        <img src="{{ kebab.kebab_url.url }}">
+                        <div class = "ingrets">
+                            <p>{{ kebab.text}}</p>
+                        </div>
+                        <div class = 'container_kebaba_button'>
+                            <form method="post" onsubmit="return false;">
+                                {% csrf_token %}
+                                {% if kebab.col_buttons == 2 %}
+                                <div class = 'buttontiks'>
+                                    <button   onclick="updatemass(400, {{ kebab.id }})" class="hell_1" name = "mass" value="400">400</button>
+                                    <button  onclick="updatemass(500, {{ kebab.id }})" class="hell_2" name = "mass" >500</button>
+                                 </div>
+                                {% endif %}
+                                {% if kebab.col_buttons == 4%}
+                                <div class = 'buttontiks_4'>
+                                    <button  onclick="updatemass(300, {{ kebab.id }})" class="hell_1" name = "mass" value="300">300</button>
+                                    <button   onclick="updatemass(400, {{ kebab.id }})" name = "mass" value="400">400</button>
+                                    <button   onclick="updatemass(500, {{ kebab.id }})" name = "mass" value="500">500</button>
+                                    <button  onclick="updatemass(650, {{ kebab.id }})" class="hell_2" name = "mass" value="650">650</button>
+                                </div>
+                                {% endif %}
+                            </form>
+                        </div>
+                        <div class="price">
+                            <h4 id = 'massa-{{ kebab.id}}'>Масса: 400 г</h4>
+                            <h4 id='price-{{ kebab.id}}'>Цена: 12.5BYN</h4>
+                        </div>
+                            <a href="{% url 'pred_card' kebab_url=kebab.id%}">
+                            <button class = 'nn'>В корзину</button>
+                        </a>
+                </div>
+                {% endfor %}
+            </div>
+        </article>
+        <article id="Mini_kebab">
+            <div>
+               <h1 class = 'index_main_h1'>Мини-кебабы</h1>
+            </div>
+            <div class="blocks">
+                {% for kebabi in kebabi %}
+                <div class = "card">
+                    <div class="name">
+                        <h3>{{kebabi.Name}}</h3>
+                    </div>
+                        <img src="{{ kebabi.kebab_url.url }}">
+                        <div class = "ingrets">
+                            <p>{{ kebabi.text}}</p>
+                        </div>
+                        <div class="price">
+                            <h4> Масса: {{ kebabi.mas|floatformat:"-1" }} г</h4>
+                            <h4> Цена: {{ kebabi.Price }} BYN</h4>
+                        </div>
+                        <a href="{% url 'pred_card' kebab_url=kebabi.id%}">
+                            <button class = 'nn'>В корзину</button>
+                        </a>
+                </div>
+                {% endfor %}
+            </div>
+        </article>
+        <article id = 'kebab_sosiska'>
+            <div>
+               <h1 class = 'index_main_h1'>Питадоги</h1>
+            </div>
+            <div class="blocks">
+                {% for kebabik in kebabik %}
+                <div class = "card">
+                    <div class="name">
+                        <h3>{{kebabik.Name}}</h3>
+                    </div>
+                        <img src="{{ kebabik.kebab_url.url }}">
+                        <div class = "ingrets">
+                            <p>{{ kebabik.text}}</p>
+                        </div>
+                        <div class="price">
+                            <h4> Масса: {{ kebabik.mas|floatformat:"-1" }} г</h4>
+                            <h4> Цена: {{ kebabik.Price }} BYN</h4>
+                        </div>
+                        <a href="{% url 'pred_card' kebab_url=kebabik.id%}">
+                            <button class = 'nn'>В корзину</button>
+                        </a>
+                </div>
+                {% endfor %}
+            </div>
+        </article>
+        <article id = 'potatos'>
+            <div>
+               <h1 class = 'index_main_h1'>Картошечка</h1>
+            </div>
+            <div class="blocks">
+                {% for potatos in potatos %}
+               <div class = "card">
+                   <div class = 'name'>
+                       <h3>{{potatos.Name}}</h3>
+                   </div>
+                        <img src="{{ potatos.drink_url.url }}">
+                           <div class="price">
+                                <h4> Масса: {{ potatos.mass|floatformat:"-1" }} г</h4>
+                                <h4> Цена: {{ potatos.price }} BYN</h4>
+                           </div>
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="drink" value="{{ potatos.id  }}">
+                                <button type="submit" class = 'nn'>В корзину</button>
+                            </form>
+                </div>
+               {% endfor %}
+           </div>
+        </article>
+        <article id = 'drink'>
+            <div>
+               <h1 class = 'index_main_h1'>Напитки</h1>
+            </div>
+           <div class="blocks">
+                {% for drink in drink %}
+               <div class = "card">
+                       <h3>{{drink.Name}}</h3>
+                        <img src="{{ drink.drink_url.url }}">
+                           <div class="price">
+                                <h4> Литр: {{ drink.mass|floatformat:"-1" }}</h4>
+                                <h4> Цена: {{ drink.price| floatformat:"-1"}} BYN</h4>
+                            </div>
+                            <form method="post">
+                                {% csrf_token %}
+                                    <input type="hidden" name="drink" value="{{ drink.id  }}">
+                                    <button type="submit" class = 'nn'>В корзину</button>
+                            </form>
+                </div>
+               {% endfor %}
+           </div>
+        </article>
+
+    </main>
+<footer>
+        <div class='footer-up'>
+            <div class = 'column'>
+                <div class = 'footer_line'></div>
+                <a href="">Наши преимущество<a>
+                <a href="">Как работает наш сервис?</a>
+                <a href="">Подключится к Eventplace</a>
+                <a href="">Гарантии и безопасность</a>
+            </div>
+            <div class = 'column'>
+                <div class = 'footer_line'></div>
+                <a href="">FAQ</a>
+                <a href="">Документы</a>
+                <a href="">Инвесторам</a>
+                <a href="">СМИ о нас</a>
+            </div>
+            <div class = 'column'>
+                <div class = 'footer_line'></div>
+                <div>
+                    <img src="">
+                    <img scr="">
+                    <img scr="">
+                    <img scr = ''>
+                </div>
+                <a href = ''>OOO"Eventplace"</a>
+                <a href = ''>OOO"Eventplace"</a>
+            </div>
+        </div>
+        <div class = 'footer-bottom'>
+            <h5>2021 all rights reserved</h5>
+            <div>
+                <a href="">Конфиденциальность</a>
+                <a href="">Условия</a>
+            </div>
+        </div>
+    </footer>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
