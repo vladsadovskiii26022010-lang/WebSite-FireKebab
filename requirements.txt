@@ -1,2 +1,4 @@
 Django
 gunicorn
+Pillow
+dj-database-url
