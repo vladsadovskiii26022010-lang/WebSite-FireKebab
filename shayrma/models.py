@@ -65,6 +65,24 @@ class Saved(models.Model):
         verbose_name = "Индивидуальные"
         verbose_name_plural = "Индивидуальные"
 
+class Saved_invite(models.Model):
+    Name = models.CharField(max_length=100)
+    types = models.ForeignKey(Types, on_delete=models.CASCADE, blank=True, null=True)
+    text = models.CharField(max_length=200)
+    dop_text = models.CharField(max_length=200, blank=True, null=True)
+    Price = models.FloatField(blank=True, null=True)
+    mas = models.FloatField(blank=True, null=True)
+    col_buttons = models.IntegerField(blank=True, null=True)
+    col = models.IntegerField(blank=True, null=True)
+    kebab_url = models.ImageField(upload_to='kebab/', blank=True, null=True)
+    def __str__(self):
+        return f" {self.Name}:"
+
+    class Meta:
+        verbose_name = "Индивидуальные_(нужны для заказа)"
+        verbose_name_plural = "Индивидуальные_(нужны для заказа)"
+
+
 class Orders(models.Model):
     Name = models.CharField(max_length=100)
     Phone = models.CharField(max_length=50)
@@ -80,7 +98,7 @@ class Orders(models.Model):
 
 class Card(models.Model):
     Order = models.ForeignKey(Orders, on_delete=models.CASCADE)
-    Kebab = models.ForeignKey(Saved, on_delete=models.CASCADE)
+    Kebab = models.ForeignKey(Saved_invite, on_delete=models.CASCADE)
     TotalPrice = models.FloatField(blank=True, null=True)
     dop_text = models.CharField(max_length=200, blank=True, null=True)
     def __str__(self):

@@ -2,7 +2,7 @@ from itertools import product
 from django.http import JsonResponse
 import json
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Types, Kebab, Saved, Drink, Orders, Card
+from .models import Types, Kebab, Saved, Drink, Orders, Card, Saved_invite
 from django.db.models import Sum, IntegerField
 from django.db.models.functions import Cast
 from django.views.decorators.csrf import csrf_exempt
@@ -30,6 +30,14 @@ def index(request):
                 Price=dri.price,
                 mas=dri.mass,
                 col =dri.col,
+                kebab_url=dri.drink_url,
+            )
+            Saved_invite.objects.create(
+                Name=dri.Name,
+                types=dri.types,
+                Price=dri.price,
+                mas=dri.mass,
+                col=dri.col,
                 kebab_url=dri.drink_url,
             )
             return redirect('card')
@@ -62,6 +70,16 @@ def pred_card (request, kebab_url):
             mas = product.mas,
             kebab_url = product.kebab_url,
             col = product.col
+        )
+        Saved_invite.objects.create(
+            Name=product.Name,
+            types=product.types,
+            Price=product.price,
+            text=product.text,
+            dop_text=options_string,
+            mas=product.mas,
+            kebab_url=product.kebab_url,
+            col=product.col
         )
         return redirect('card')
     return render(request, 'pred_card.html', {'product':product})
@@ -112,14 +130,20 @@ def card(request):
             kebab_saved = Saved.objects.get(id = product_id)
             kebab_saved.col = col
             kebab_saved.save()
+            kebab_saved_invite = Saved_invite.objects.get(id=product_id)
+            kebab_saved_invite.col = col
+            kebab_saved_invite.save()
         else:
             kebab_delete = data.get('delete_id')
             card_delete = Saved.objects.get(id = kebab_delete)
             card_delete.delete()
+            card_delete_invite = Saved_invite.objects.get(id=kebab_delete)
+            card_delete_invite.delete()
     return render(request, 'card.html', {'products':products})
 
 def order(request):
-    products = Saved.objects.all()
+    products = Saved_invite.objects.all()
+    Save = Saved.objects.all()
     orders = Orders.objects.all()
     total_price = 0
     name = ''
@@ -146,7 +170,8 @@ def order(request):
                 TotalPrice = total_price,
                 dop_text = text,
             )
-            return redirect('end')
+        Save.delete()
+        return redirect('end')
 
     return render(request, 'order.html')
 
